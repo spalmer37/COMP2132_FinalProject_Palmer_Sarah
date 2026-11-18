@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Save the Little Tree | Hangman</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/styles.css" />
+    <body>
+      <div class="snow" id="snow" aria-hidden="true"></div>
+
+      <main class="strip">
+        <h1 class="title">Save the Little Tree</h1>
+        <div class="zigzag" aria-hidden="true"></div>
+        <p class="pageant-note">
+          It needs a little love. Guess the word to save its ornaments.
+        </p>
+
+        <section class="panel tree-panel" aria-label="The tree">
+          <div class="tree-stage" id="treeStage">
+            <img
+              id="treeImage"
+              src="images/tree-0.svg"
+              alt="A scrappy little Christmas tree with six red ornaments"
+            />
+          </div>
+          <p class="lives-label">Ornaments left</p>
+          <div class="lives" id="lives" aria-live="polite"></div>
+        </section>
+
+        <section class="panel play-panel" aria-label="Game">
+          <p class="hint">
+            <strong>Hint:</strong> <span id="hintText">Loading...</span>
+          </p>
+          <div class="word" id="wordDisplay" aria-live="polite"></div>
+
+          <label class="guess-box" for="guessInput">
+            <span>Type a Letter</span>
+            <input
+              id="guessInput"
+              type="text"
+              maxlength="1"
+              autocomplete="off"
+              autocapitalize="characters"
+              spellcheck="false"
+            />
+          </label>
+          <p class="message" id="message" aria-live="polite"></p>
+
+          <div class="keyboard" id="keyboard"></div>
+
+          <div class="result" id="result" hidden>
+            <img id="resultImage" class="result-image" src="" alt="" hidden />
+            <div class="mascot-frame" hidden>
+              <img
+                id="mascotImage"
+                class="mascot"
+                src="images/snoopy_woodstock.jpg"
+                alt="Snoopy and Woodstock in winter hats walking together"
+              />
+            </div>
+            <h2 id="resultTitle"></h2>
+            <p id="resultText"></p>
+            <button type="button" class="play-again" id="playAgain">
+              Play Again
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <script src="js/hangman-game.js"></script>
+      <script src="js/main.js"></script>
+    </body>
+  </head>
+</html>

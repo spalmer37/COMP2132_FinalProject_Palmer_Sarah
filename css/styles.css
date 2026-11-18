@@ -1,0 +1,343 @@
+:root {
+  --night: #14213d;
+  --night-light: #24385f;
+  --snow: #f4f7fb;
+  --ink: #1d2433;
+  --red: #d7263d;
+  --green: #3f9a62;
+  --gold: #ffd23f;
+  --grey: #c9d1de;
+  --font: "Patrick Hand", "Comic Sans MS", "Chalkboard SE", cursive;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+[hidden] {
+  display: none !important;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font: 1.25rem var(--font);
+  color: var(--ink);
+  background: linear-gradient(var(--night), var(--night-light)) fixed;
+}
+
+:focus-visible {
+  outline: 4px solid var(--gold);
+  outline-offset: 3px;
+}
+
+.strip {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: minmax(260px, 5fr) 7fr;
+  gap: 28px;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 24px 16px 40px;
+}
+@media (max-width: 760px) {
+  .strip {
+    grid-template-columns: 1fr;
+  }
+}
+
+.title,
+.zigzag,
+.pageant-note {
+  grid-column: 1/-1;
+}
+
+.title {
+  margin: 0;
+  text-align: center;
+  font-size: clamp(2.2rem, 6vw, 3.6rem);
+  font-weight: normal;
+  color: var(--snow);
+  text-shadow: 3px 3px 0 var(--red);
+  transform: rotate(-1.5deg);
+}
+
+.zigzag {
+  border: 4px solid var(--ink);
+  border-radius: 8px;
+  height: 14px;
+  background: linear-gradient(135deg, var(--ink) 25%, transparent 25%) -14px 0/28px 28px, linear-gradient(225deg, var(--ink) 25%, transparent 25%) -14px 0/28px 28px, linear-gradient(315deg, var(--ink) 25%, transparent 25%) 0 0/28px 28px, linear-gradient(45deg, var(--ink) 25%, var(--gold) 25%) 0 0/28px 28px;
+}
+
+.pageant-note {
+  margin: 0;
+  text-align: center;
+  font-size: 1.1rem;
+  color: var(--snow);
+}
+
+.panel {
+  border: 4px solid var(--ink);
+  border-radius: 14px;
+  padding: 20px;
+  background: var(--snow);
+  box-shadow: 6px 6px 0 var(--ink);
+}
+
+.tree-panel {
+  text-align: center;
+  transform: rotate(-1deg);
+}
+
+.tree-stage {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  position: relative;
+  width: 100%;
+  max-width: 340px;
+  margin: 0 auto;
+  aspect-ratio: 4/5;
+  overflow: hidden;
+  background: radial-gradient(circle at 50% 30%, #dfe9f7, #b9cbe6);
+}
+.tree-stage img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.falling-ornament {
+  position: absolute;
+  width: 8%;
+  pointer-events: none;
+}
+
+.shard {
+  position: absolute;
+  width: 9px;
+  height: 9px;
+  background: var(--red);
+  border: 2px solid var(--ink);
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+  pointer-events: none;
+}
+
+.lives-label {
+  margin: 14px 0 4px;
+}
+
+.lives {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  min-height: 40px;
+}
+
+.life {
+  width: 28px;
+  transition: opacity 0.4s, filter 0.4s;
+}
+.life.lost {
+  opacity: 0.25;
+  filter: grayscale(1);
+}
+
+.play-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.hint {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  margin: 0;
+  padding: 10px 14px;
+  background: var(--gold);
+}
+
+.word {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  gap: clamp(3px, 1vw, 8px);
+  min-height: 64px;
+}
+
+.slot {
+  display: flex;
+  flex: 1 1 0;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
+  max-width: 42px;
+  height: 56px;
+  font-size: clamp(1.3rem, 4.5vw, 2.2rem);
+  border-bottom: 5px solid var(--ink);
+}
+.slot.revealed {
+  color: var(--red);
+}
+
+.guess-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+}
+.guess-box input {
+  border: 4px solid var(--ink);
+  border-radius: 12px;
+  width: 64px;
+  height: 64px;
+  text-align: center;
+  text-transform: uppercase;
+  font: inherit;
+  font-size: 2rem;
+  color: var(--ink);
+  background: #fff;
+}
+.guess-box input:disabled {
+  background: var(--grey);
+}
+
+.message {
+  margin: 0;
+  min-height: 1.6em;
+  text-align: center;
+}
+
+.keyboard {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(44px, 1fr));
+  gap: 8px;
+}
+
+.key,
+.play-again {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  font-family: var(--font);
+  cursor: pointer;
+  box-shadow: 0 4px 0 var(--ink);
+  transition: transform 0.08s, box-shadow 0.08s;
+}
+.key:hover:not(:disabled),
+.play-again:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+.key:active:not(:disabled),
+.play-again:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: none;
+}
+
+.key {
+  height: 46px;
+  font-size: 1.3rem;
+  color: var(--ink);
+  background: var(--snow);
+}
+.key.hit, .key.miss {
+  color: #fff;
+}
+.key.hit {
+  background: var(--green);
+}
+.key.miss {
+  background: var(--red);
+}
+.key:disabled {
+  box-shadow: 0 1px 0 var(--ink);
+  transform: translateY(3px);
+}
+.key:disabled:not(.hit):not(.miss) {
+  background: var(--grey);
+  cursor: not-allowed;
+}
+
+.play-again {
+  padding: 10px 28px;
+  font-size: 1.4rem;
+  color: #fff;
+  background: var(--green);
+}
+
+.result {
+  padding: 14px;
+  text-align: center;
+  border: 4px dashed var(--red);
+  border-radius: 14px;
+}
+.result h2 {
+  margin: 0 0 4px;
+  font-size: 2.2rem;
+  font-weight: normal;
+  color: var(--red);
+}
+.result p {
+  margin: 0 0 12px;
+}
+
+.result-image {
+  border: 3px solid var(--ink);
+  border-radius: 10px;
+  display: block;
+  max-width: 100%;
+  max-height: 220px;
+  margin: 0 auto 12px;
+}
+
+.mascot-frame {
+  width: 100%;
+  max-width: 220px;
+  aspect-ratio: 1;
+  margin: 0 auto 10px;
+  overflow: hidden;
+  border-radius: 10px;
+  animation: bounce 0.8s ease-in-out infinite alternate;
+}
+
+.mascot {
+  display: block;
+  width: 125%;
+  max-width: none;
+  margin: -12% 0 0 -12%;
+  mix-blend-mode: multiply;
+}
+
+@keyframes bounce {
+  to {
+    transform: translateY(-8px);
+  }
+}
+.snow {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.snow span {
+  position: absolute;
+  top: -10px;
+  width: var(--size);
+  height: var(--size);
+  background: #fff;
+  border-radius: 50%;
+  opacity: 0.8;
+  animation: snowfall linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .snow {
+    display: none;
+  }
+}
+
+@keyframes snowfall {
+  to {
+    transform: translate(30px, 105vh);
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

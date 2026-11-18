@@ -1,0 +1,31 @@
+{
+  "words": [
+    {
+      "word": "SNOWFLAKE",
+      "hint": "No two are alike, and they melt on your mitten."
+    },
+    { "word": "ORNAMENT", "hint": "Round, shiny, and hung on a branch." },
+    { "word": "BLANKET", "hint": "Something soft to drag around everywhere." },
+    { "word": "PEANUTS", "hint": "The comic strip this tree comes from." },
+    { "word": "MISTLETOE", "hint": "Stand under it and expect a kiss." },
+    { "word": "REINDEER", "hint": "Nine of them pull a very heavy sleigh." },
+    { "word": "FIREPLACE", "hint": "Stockings hang from this warm spot." },
+    { "word": "SKATING", "hint": "Gliding across a frozen pond on blades." },
+    { "word": "CAROLS", "hint": "Songs sung door to door in winter." },
+    { "word": "STOCKING", "hint": "Hung up empty, found full on December 25." },
+    { "word": "SLEIGH", "hint": "A winter ride with jingle bells." },
+    {
+      "word": "GINGERBREAD",
+      "hint": "A spicy cookie shaped like a little man."
+    },
+    {
+      "word": "SNOWMAN",
+      "hint": "Built from three balls, with a carrot nose."
+    },
+    {
+      "word": "EVERGREEN",
+      "hint": "A tree that keeps its needles all winter."
+    },
+    { "word": "WREATH", "hint": "A circle of pine hung on the front door." }
+  ]
+}

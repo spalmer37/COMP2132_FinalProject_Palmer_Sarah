@@ -33,9 +33,12 @@ class HangmanGame {
   }
 
   isWon() {
-    return [...this.secretWord].every((letter) =>
-      this.guessedLetters.includes(letter),
-    );
+    for (const letter of this.secretWord) {
+      if (!this.hasGuessed(letter)) {
+        return false;
+      }
+    }
+    return true;
   }
 
   isLost() {

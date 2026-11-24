@@ -52,7 +52,9 @@ function buildKeyboard() {
     key.className = "key";
     key.textContent = letter;
     key.dataset.letter = letter;
-    key.addEventListener("click", () => handleGuess(letter));
+    key.addEventListener("click", function () {
+      handleGuess(letter);
+    });
     keyboard.appendChild(key);
   }
 }
@@ -78,7 +80,11 @@ function renderLives() {
     const icon = document.createElement("img");
     icon.src = "images/ornament.svg";
     icon.alt = "";
-    icon.className = i < game.ornamentsLeft ? "life" : "life lost";
+    if (i < game.ornamentsLeft) {
+      icon.className = "life";
+    } else {
+      icon.className = "life lost";
+    }
     livesDisplay.appendChild(icon);
   }
   livesDisplay.setAttribute(
@@ -114,12 +120,13 @@ function handleGuess(letter) {
   }
   const key = keyboard.querySelector('[data-letter="' + letter + '"]');
   key.disabled = true;
-  key.classList.add(outcome === "correct" ? "hit" : "miss");
 
   if (outcome === "correct") {
+    key.classList.add("hit");
     messageDisplay.textContent = "Yes! " + letter + " is in the word.";
     renderWord(letter);
   } else {
+    key.classList.add("miss");
     messageDisplay.textContent =
       "Good grief, no " + letter + ". An ornament fell!";
     dropOrnament(game.wrongGuesses - 1);
@@ -162,7 +169,7 @@ function endGame() {
     resultTitle.textContent = "Good grief!";
     resultText.textContent =
       "The tree is out of ornaments. The word was " + game.secretWord + ".";
-    wordDisplay.querySelectorAll(".slot").forEach((slot, index) => {
+    wordDisplay.querySelectorAll(".slot").forEach(function (slot, index) {
       if (!slot.textContent) {
         slot.textContent = game.secretWord[index];
         slot.classList.add("revealed");
@@ -211,7 +218,7 @@ function dropOrnament(index) {
     ],
     { duration: 650, easing: "cubic-bezier(0.5, 0, 1, 0.8)", fill: "forwards" },
   );
-  fall.onfinish = () => {
+  fall.onfinish = function () {
     ornament.remove();
     shatter(start.left, GROUND_TOP);
   };
@@ -227,10 +234,14 @@ function shatter(left, top) {
 
     const angle = Math.PI * (1 + Math.random());
     const distance = 25 + Math.random() * 45;
-    const x = Math.cos(angle) * distance * (Math.random() < 0.5 ? -1 : 1);
+    let direction = 1;
+    if (Math.random() < 0.5) {
+      direction = -1;
+    }
+    const x = Math.cos(angle) * distance * direction;
     const y = Math.sin(angle) * distance;
     const spin = Math.random() * 540 - 270;
-    shard.animate(
+    const shardAnimation = shard.animate(
       [
         { transform: "translate(0, 0) rotate(0deg)", opacity: 1 },
         {
@@ -246,7 +257,10 @@ function shatter(left, top) {
         },
       ],
       { duration: 900, easing: "ease-out" },
-    ).onfinish = () => shard.remove();
+    );
+    shardAnimation.onfinish = function () {
+      shard.remove();
+    };
   }
 }
 
@@ -262,7 +276,7 @@ function makeSnow() {
   }
 }
 
-guessInput.addEventListener("input", () => {
+guessInput.addEventListener("input", function () {
   const letter = guessInput.value.trim().toUpperCase();
   guessInput.value = "";
   if (!letter) {
@@ -275,7 +289,7 @@ guessInput.addEventListener("input", () => {
   }
 });
 
-playAgainButton.addEventListener("click", () => {
+playAgainButton.addEventListener("click", function () {
   game.start();
   renderGame();
 });
